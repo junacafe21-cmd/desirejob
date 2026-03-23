@@ -9,13 +9,8 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-brand-orange rounded-xl flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <span className="text-base font-black text-brand-orange italic">Desire</span>
-                <span className="text-sm font-bold text-white tracking-widest ml-1">JOB HUB</span>
-              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Desire Job Hub Logo" className="h-10 w-auto bg-white rounded-lg p-1.5 object-contain" />
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               Nepal&apos;s trusted job portal connecting talented professionals with top companies across the country.

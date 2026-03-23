@@ -13,17 +13,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 bg-gradient-to-br from-brand-orange to-orange-400 rounded-xl flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-              <Briefcase className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-sm font-black text-brand-orange tracking-wide" style={{ fontStyle: 'italic' }}>
-                Desire
-              </span>
-              <span className="text-xs font-bold text-brand-blue tracking-widest -mt-0.5">
-                JOB HUB
-              </span>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo.png" alt="Desire Job Hub Logo" className="h-10 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform" />
           </Link>
 
           {/* Desktop Nav */}
