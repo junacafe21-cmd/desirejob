@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="sm:col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Desire Job Hub Logo" className="h-10 w-auto bg-white rounded-lg p-1.5 object-contain" />
+              <img src="/logo.png" alt="Desire Job Hub Logo" className="h-14 w-auto bg-white rounded-lg p-1.5 object-contain" />
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               Nepal&apos;s trusted job portal connecting talented professionals with top companies across the country.

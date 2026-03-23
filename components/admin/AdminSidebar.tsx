@@ -37,7 +37,7 @@ export default function AdminSidebar() {
       <div className={clsx('flex items-center gap-3 p-5 border-b border-white/10', collapsed && 'justify-center')}>
         {!collapsed ? (
           /* eslint-disable-next-line @next/next/no-img-element */
-          <img src="/logo.png" alt="Desire Admin Logo" className="h-9 w-auto max-w-[140px] bg-white rounded object-contain p-1" />
+          <img src="/logo.png" alt="Desire Admin Logo" className="h-11 w-auto max-w-[160px] bg-white rounded object-contain p-1" />
         ) : (
           <div className="w-9 h-9 bg-brand-orange rounded-xl flex items-center justify-center flex-shrink-0">
             <Shield className="w-5 h-5 text-white" />

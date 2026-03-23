@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   phone TEXT,
   credits INTEGER DEFAULT 0,
   role TEXT DEFAULT 'user' CHECK (role IN ('user', 'admin')),
+  avatar_url TEXT,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );

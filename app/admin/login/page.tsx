@@ -64,7 +64,7 @@ export default function AdminLogin() {
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Desire Admin Logo" className="h-16 w-auto object-contain drop-shadow-lg" />
+            <img src="/logo.png" alt="Desire Admin Logo" className="h-20 w-auto object-contain drop-shadow-lg" />
           </div>
           <div className="flex items-center justify-center gap-2 text-white/70">
             <Shield className="w-4 h-4" />
