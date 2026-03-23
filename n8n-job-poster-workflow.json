@@ -1,0 +1,224 @@
+{
+  "name": "Desire Job Hub - AI Telegram Bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "telegram-trigger-node",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text || 'Process the attached image' }}",
+        "options": {
+          "systemMessage": "You are the Desire Job Hub assistant. Your job is to upload job posters to the database. \n\nWhen the user sends an image, analyze it and extract: Title, Company, Location, Salary, Description, and Contact Info.\n\nIf ANY of these 6 pieces of information are missing from the poster, you MUST reply to the user in Telegram and ask them to provide the missing details (e.g., 'I see it is a Marketing job, but what is the Salary and Location?').\n\nDO NOT call the 'SaveToSupabase' tool until you have gathered all 6 details. Once you have absolutely all 6, call the 'SaveToSupabase' tool to save the job. Tell the user exactly when the upload is complete."
+        }
+      },
+      "id": "ai-agent-node",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.4,
+      "position": [
+        550,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "options": {}
+      },
+      "id": "openai-model",
+      "name": "OpenAI Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        550,
+        500
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "window-memory",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1,
+      "position": [
+        680,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "name": "SaveToSupabase",
+        "description": "Call this tool when you have exactly all 6 pieces of information: title, company, location, salary, description, and contact_info. Call this ONLY after confirming all properties are present.",
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"description\": \"The job title\"\n    },\n    \"company\": {\n      \"type\": \"string\",\n      \"description\": \"The hiring company name\"\n    },\n    \"location\": {\n      \"type\": \"string\",\n      \"description\": \"Job location\"\n    },\n    \"salary\": {\n      \"type\": \"string\",\n      \"description\": \"The salary range or amount\"\n    },\n    \"description\": {\n      \"type\": \"string\",\n      \"description\": \"Detailed description of the role\"\n    },\n    \"contact_info\": {\n      \"type\": \"string\",\n      \"description\": \"Email or phone number to apply\"\n    }\n  },\n  \"required\": [\"title\", \"company\", \"location\", \"salary\", \"description\", \"contact_info\"]\n}",
+        "method": "POST",
+        "url": "YOUR_SUPABASE_PROJECT_URL/rest/v1/jobs",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_SUPABASE_SERVICE_ROLE_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=minimal"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "title",
+              "value": "={{ $parameter.title }}"
+            },
+            {
+              "name": "company",
+              "value": "={{ $parameter.company }}"
+            },
+            {
+              "name": "location",
+              "value": "={{ $parameter.location }}"
+            },
+            {
+              "name": "salary",
+              "value": "={{ $parameter.salary }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $parameter.description }}"
+            },
+            {
+              "name": "contact_info",
+              "value": "={{ $parameter.contact_info }}"
+            }
+          ]
+        }
+      },
+      "id": "supabase-api-tool",
+      "name": "SaveToSupabase",
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1,
+      "position": [
+        800,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "id": "telegram-send-message",
+      "name": "Telegram Reply",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.1,
+      "position": [
+        900,
+        300
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Telegram Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SaveToSupabase": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
