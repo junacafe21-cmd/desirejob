@@ -1,7 +1,9 @@
+'use client';
+
 import { useEffect, useState, useRef } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { createClient } from '@/lib/supabase/client';
-import { Settings, Upload, CheckCircle, Loader2, QrCode, User, Globe, ShieldCheck, AlertTriangle } from 'lucide-react';
+import { Settings, Upload, CheckCircle, Loader2, QrCode, User, Globe, ShieldCheck, AlertTriangle, RefreshCw } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function SettingsPage() {
