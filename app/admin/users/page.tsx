@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { createClient } from '@/lib/supabase/client';
 import { Users, CreditCard, RefreshCw } from 'lucide-react';
@@ -10,7 +10,7 @@ export default function AdminUsersPage() {
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     setLoading(true);
     const { data } = await supabase
       .from('user_credits')
@@ -18,9 +18,9 @@ export default function AdminUsersPage() {
       .order('total_paid', { ascending: false });
     setUsers(data || []);
     setLoading(false);
-  };
+  }, [supabase]);
 
-  useEffect(() => { fetchUsers(); }, []);
+  useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
   const totalRevenue = users.reduce((sum, u) => sum + (u.total_paid || 0), 0);
   const totalCreditsIssued = users.reduce((sum, u) => sum + (u.credits || 0), 0);

@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { createClient } from '@/lib/supabase/client';
 import { Settings, Upload, CheckCircle, Loader2, QrCode, User, Globe, ShieldCheck, AlertTriangle, RefreshCw } from 'lucide-react';
+import NextImage from 'next/image';
 import toast from 'react-hot-toast';
 
 export default function SettingsPage() {
@@ -20,7 +21,7 @@ export default function SettingsPage() {
   const supabase = createClient();
 
   // Fetch Admin Profile
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     setProfileLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
@@ -32,10 +33,10 @@ export default function SettingsPage() {
       setProfile(data);
     }
     setProfileLoading(false);
-  };
+  }, [supabase]);
 
   // Fetch the latest QR Code
-  const fetchQR = async () => {
+  const fetchQR = useCallback(async () => {
     setLoading(true);
     const { data } = await supabase.storage.from('qr-codes').list('', { sortBy: { column: 'created_at', order: 'desc' }, limit: 1 });
     if (data && data.length > 0 && data[0].name !== '.emptyFolderPlaceholder') {
@@ -43,10 +44,10 @@ export default function SettingsPage() {
       setQrUrl(urlReq.data.publicUrl);
     }
     setLoading(false);
-  };
+  }, [supabase]);
 
   // Check Storage Health
-  const checkStorageHealth = async () => {
+  const checkStorageHealth = useCallback(async () => {
     setCheckingStorage(true);
     const buckets = ['qr-codes', 'payment-screenshots', 'cv-uploads'];
     const results: any = {};
@@ -57,13 +58,13 @@ export default function SettingsPage() {
     }
     setStorageStatus(results);
     setCheckingStorage(false);
-  };
+  }, [supabase]);
 
   useEffect(() => {
     fetchQR();
     fetchProfile();
     checkStorageHealth();
-  }, []);
+  }, [fetchQR, fetchProfile, checkStorageHealth]);
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,7 +166,7 @@ export default function SettingsPage() {
                     <div className="relative group">
                       <div className="w-24 h-24 rounded-2xl bg-gray-100 flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-200 group-hover:border-brand-blue transition-colors">
                         {profile?.avatar_url ? (
-                          <img src={profile.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                          <NextImage src={profile.avatar_url} alt="Avatar" width={96} height={96} className="w-full h-full object-cover" />
                         ) : (
                           <User className="w-10 h-10 text-gray-300" />
                         )}
@@ -238,7 +239,7 @@ export default function SettingsPage() {
                     {loading ? (
                       <Loader2 className="animate-spin text-gray-300" />
                     ) : (
-                      <img src={qrUrl} alt="QR Code" className="w-full h-full object-contain rounded-lg" />
+                      <NextImage src={qrUrl} alt="QR Code" width={200} height={260} className="w-full h-full object-contain rounded-lg" unoptimized />
                     )}
                   </div>
                 </div>

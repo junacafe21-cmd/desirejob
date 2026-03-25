@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import NextImage from 'next/image';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { createClient } from '@/lib/supabase/client';
 import { CheckCircle, XCircle, Eye, Clock, Download, RefreshCw, ChevronDown } from 'lucide-react';
@@ -212,7 +213,14 @@ function ApplicationsContent() {
                 <p className="label mb-2">Payment Screenshot</p>
                 {screenshotUrl ? (
                   <div className="space-y-2">
-                    <img src={screenshotUrl} alt="Payment" className="w-full rounded-xl border border-gray-200 object-contain max-h-64" />
+                    <NextImage 
+                      src={screenshotUrl} 
+                      alt="Payment" 
+                      width={400} 
+                      height={400} 
+                      className="w-full rounded-xl border border-gray-200 object-contain max-h-64" 
+                      unoptimized 
+                    />
                     <a href={screenshotUrl} download className="btn-outline text-xs py-1.5 px-3 w-full justify-center">
                       <Download className="w-3.5 h-3.5" /> Download Screenshot
                     </a>

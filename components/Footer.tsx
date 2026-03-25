@@ -65,9 +65,9 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {['Technology', 'Marketing', 'Finance', 'Engineering', 'Education', 'Healthcare'].map((cat) => (
                 <li key={cat}>
-                  <a href="/#jobs" className="text-white/60 hover:text-brand-orange text-sm transition-colors">
+                  <Link href="/#jobs" className="text-white/60 hover:text-brand-orange text-sm transition-colors">
                     {cat}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -103,8 +103,8 @@ export default function Footer() {
         <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
           <p>© 2025 Desire Job Hub. All rights reserved. Made with ❤️ for Nepal</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white/70 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white/70 transition-colors">Terms of Service</a>
+            <Link href="#" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
+            <Link href="#" className="hover:text-white/70 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

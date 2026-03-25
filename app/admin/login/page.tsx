@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { Briefcase, Eye, EyeOff, Loader2, Shield } from 'lucide-react';
 
@@ -63,8 +65,13 @@ export default function AdminLogin() {
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-3 mb-4">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Desire Admin Logo" className="h-20 w-auto object-contain drop-shadow-lg" />
+            <Image 
+              src="/logo.png" 
+              alt="Desire Admin Logo" 
+              width={160} 
+              height={80} 
+              className="h-20 w-auto object-contain drop-shadow-lg" 
+            />
           </div>
           <div className="flex items-center justify-center gap-2 text-white/70">
             <Shield className="w-4 h-4" />
@@ -127,9 +134,9 @@ export default function AdminLogin() {
           </form>
 
           <div className="mt-6 pt-5 border-t border-gray-100 text-center">
-            <a href="/" className="text-sm text-brand-orange hover:underline">
+            <Link href="/" className="text-sm text-brand-orange hover:underline">
               ← Back to Job Portal
-            </a>
+            </Link>
           </div>
         </div>
 

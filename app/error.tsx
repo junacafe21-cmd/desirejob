@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { AlertOctagon, RefreshCw } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import Link from 'next/link';
 
 export default function Error({
   error,
@@ -37,7 +38,7 @@ export default function Error({
             Try again
           </button>
           <div className="mt-6 text-sm text-gray-400">
-            Or return to the <a href="/" className="text-brand-orange hover:underline font-medium">Homepage</a>
+            Or return to the <Link href="/" className="text-brand-orange hover:underline font-medium">Homepage</Link>
           </div>
         </div>
       </main>

@@ -25,11 +25,7 @@ export default function HomePage() {
 
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  const fetchJobs = async () => {
+  const fetchJobs = useCallback(async () => {
     setLoading(true);
     const { data, error } = await supabase
       .from('jobs')
@@ -44,7 +40,11 @@ export default function HomePage() {
       setFilteredJobs(data || []);
     }
     setLoading(false);
-  };
+  }, [supabase]);
+
+  useEffect(() => {
+    fetchJobs();
+  }, [fetchJobs]);
 
   const handleSearch = useCallback((query: string, category: string, location: string, jobType: string) => {
     setSearchQuery(query);

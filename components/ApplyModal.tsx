@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Upload, Download, CheckCircle, AlertCircle, Loader2, MapPin, Briefcase, DollarSign } from 'lucide-react';
 import { Job } from '@/lib/types';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import toast from 'react-hot-toast';
 import { createClient } from '@/lib/supabase/client';
 
@@ -39,7 +39,7 @@ export default function ApplyModal({ job, onClose }: ApplyModalProps) {
       }
     };
     fetchQR();
-  }, []);
+  }, [supabase.storage]);
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -226,7 +226,7 @@ export default function ApplyModal({ job, onClose }: ApplyModalProps) {
             {/* QR code */}
             <div className="flex flex-col items-center gap-4">
               <div className="border-4 border-green-500 rounded-2xl p-3 bg-white shadow-lg overflow-hidden">
-                <Image
+                <NextImage
                   src={qrUrl}
                   alt="Payment QR Code - NPR 500"
                   width={200}
@@ -268,7 +268,13 @@ export default function ApplyModal({ job, onClose }: ApplyModalProps) {
               >
                 {screenshotPreview ? (
                   <div className="space-y-2">
-                    <img src={screenshotPreview} alt="Payment screenshot" className="max-h-32 mx-auto rounded-lg object-contain" />
+                    <NextImage
+                      src={screenshotPreview}
+                      alt="Payment screenshot"
+                      width={128} // Example width, adjust as needed
+                      height={128} // Example height, adjust as needed
+                      className="max-h-32 mx-auto rounded-lg object-contain"
+                    />
                     <p className="text-xs text-green-600 font-medium">✓ Screenshot uploaded — {screenshotFile?.name}</p>
                   </div>
                 ) : (

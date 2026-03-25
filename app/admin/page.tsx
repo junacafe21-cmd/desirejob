@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import { createClient } from '@/lib/supabase/client';
 import { FileText, Briefcase, Clock, CheckCircle, XCircle, Users } from 'lucide-react';
@@ -21,11 +21,7 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     const [appsRes, jobsRes, usersRes] = await Promise.all([
       supabase.from('applications').select('status'),
       supabase.from('jobs').select('id', { count: 'exact', head: true }),
@@ -50,7 +46,11 @@ export default function AdminDashboard() {
       .limit(5);
     setRecentApplications(recent || []);
     setLoading(false);
-  };
+  }, [supabase]);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   const statCards = [
     { label: 'Total Applications', value: stats.totalApplications, icon: FileText, color: 'bg-blue-50 text-blue-600', border: 'border-blue-100' },
