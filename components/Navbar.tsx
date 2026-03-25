@@ -1,6 +1,5 @@
-'use client';
-
 import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Menu, X, Briefcase } from 'lucide-react';
 
@@ -13,8 +12,14 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Desire Job Hub Logo" className="h-14 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform" />
+            <Image 
+              src="/logo.png" 
+              alt="Desire Job Hub Logo" 
+              width={160} 
+              height={56} 
+              className="h-10 w-auto object-contain drop-shadow-sm group-hover:scale-105 transition-transform" 
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

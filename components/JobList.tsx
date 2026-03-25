@@ -1,6 +1,7 @@
 'use client';
 
 import { Briefcase, Search } from 'lucide-react';
+import Link from 'next/link';
 import JobCard from './JobCard';
 import { Job } from '@/lib/types';
 
@@ -86,9 +87,9 @@ export default function JobList({ jobs, loading, onApply, hasFilters, onClearFil
             </div>
             <h3 className="text-2xl font-bold mb-2">Need a professional CV?</h3>
             <p className="text-white/70 mb-6">Use our AI-powered CV builder to create a standout resume in minutes</p>
-            <a href="/cv-builder" className="btn-primary text-sm">
+            <Link href="/cv-builder" className="btn-primary text-sm">
               Build Your CV →
-            </a>
+            </Link>
           </div>
         )}
       </div>

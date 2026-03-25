@@ -18,11 +18,12 @@
   
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 80px;
   }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: #1a1a1a;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    color: #0f172a;
     background-color: #f8fafc;
     -webkit-font-smoothing: antialiased;
   }
@@ -80,8 +81,19 @@
 
   .glass {
     backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+  }
+
+  .glass-dark {
+    backdrop-filter: blur(12px);
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .premium-card {
+    @apply bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1;
   }
 }
 
