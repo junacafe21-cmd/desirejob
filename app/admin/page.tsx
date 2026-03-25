@@ -97,14 +97,14 @@ export default function AdminDashboard() {
                 const Icon = card.icon;
                 const Wrapper = card.href ? Link : 'div';
                 return (
-                  <Wrapper key={card.label} href={card.href as string} className={`card p-5 border ${card.border} ${card.href ? 'hover:shadow-md cursor-pointer' : ''}`}>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-medium text-gray-500">{card.label}</span>
-                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${card.color}`}>
-                        <Icon className="w-4 h-4" />
+                  <Wrapper key={card.label} href={card.href as string} className={`premium-card p-6 border ${card.border} ${card.href ? 'cursor-pointer' : ''}`}>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs font-bold uppercase tracking-wider text-gray-400">{card.label}</span>
+                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center ${card.color} shadow-sm`}>
+                        <Icon className="w-5 h-5" />
                       </div>
                     </div>
-                    <p className="text-3xl font-black text-brand-blue">{card.value}</p>
+                    <p className="text-4xl font-black text-brand-blue tracking-tight">{card.value}</p>
                   </Wrapper>
                 );
               })}

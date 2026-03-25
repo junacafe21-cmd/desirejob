@@ -1,33 +1,47 @@
 import Link from 'next/link';
-import { Briefcase, Mail, Phone, MapPin } from 'lucide-react';
+import Image from 'next/image';
+import { Briefcase, Mail, Phone, MapPin, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-blue text-white pt-14 pb-8">
+    <footer className="bg-brand-blue text-white pt-16 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="Desire Job Hub Logo" className="h-14 w-auto bg-white rounded-lg p-1.5 object-contain" />
-            </div>
+            <Link href="/" className="inline-block mb-6">
+              <Image 
+                src="/logo.png" 
+                alt="Desire Job Hub Logo" 
+                width={150} 
+                height={50} 
+                className="h-12 w-auto bg-white rounded-xl p-2 shadow-sm"
+              />
+            </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-4">
               Nepal&apos;s trusted job portal connecting talented professionals with top companies across the country.
             </p>
-            <div className="flex gap-3">
-              {['f', 'in', 't'].map((icon) => (
-                <div key={icon} className="w-8 h-8 glass rounded-lg flex items-center justify-center text-xs font-bold text-white/70 hover:bg-white/20 cursor-pointer transition">
-                  {icon}
-                </div>
+            <div className="flex gap-4">
+              {[
+                { icon: Facebook, href: '#' },
+                { icon: Linkedin, href: '#' },
+                { icon: Twitter, href: '#' },
+              ].map(({ icon: Icon, href }, i) => (
+                <a 
+                  key={i} 
+                  href={href}
+                  className="w-10 h-10 glass-dark rounded-xl flex items-center justify-center text-white/70 hover:text-brand-orange hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-1"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
               ))}
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-sm mb-4 tracking-wide">Quick Links</h4>
-            <ul className="space-y-2.5">
+            <h4 className="font-bold text-base mb-6 tracking-wide text-white">Company</h4>
+            <ul className="space-y-4">
               {[
                 { label: 'Browse Jobs', href: '/#jobs' },
                 { label: 'How It Works', href: '/#how-it-works' },
@@ -36,7 +50,8 @@ export default function Footer() {
                 { label: 'Admin Login', href: '/admin/login' },
               ].map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="text-white/60 hover:text-brand-orange text-sm transition-colors">
+                  <Link href={link.href} className="text-white/50 hover:text-white text-sm transition-all flex items-center gap-2 group">
+                    <span className="w-1 h-1 bg-brand-orange rounded-full opacity-0 group-hover:opacity-100 transition-all"></span>
                     {link.label}
                   </Link>
                 </li>

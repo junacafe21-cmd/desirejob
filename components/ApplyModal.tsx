@@ -120,21 +120,21 @@ export default function ApplyModal({ job, onClose }: ApplyModalProps) {
   };
 
   return (
-    <div className="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto custom-scroll">
+    <div className="modal-overlay fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md">
+      <div className="modal-content bg-white rounded-[2rem] shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto custom-scroll border border-white/20">
         {/* Header */}
-        <div className="flex items-start justify-between p-6 border-b border-gray-100">
+        <div className="flex items-start justify-between p-8 border-b border-gray-100">
           <div className="flex-1">
-            <h2 className="text-xl font-bold text-brand-blue">Apply for Position</h2>
-            <p className="text-sm text-gray-500 mt-1 font-medium">{job.title} · {job.company}</p>
-            <div className="flex flex-wrap gap-3 mt-2 text-xs text-gray-400">
-              <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{job.location}</span>
-              <span className="flex items-center gap-1"><Briefcase className="w-3 h-3" />{job.job_type}</span>
-              {job.salary && <span className="flex items-center gap-1"><DollarSign className="w-3 h-3" />{job.salary}</span>}
+            <h2 className="text-2xl font-black text-brand-blue tracking-tight">Apply for Position</h2>
+            <p className="text-sm font-semibold text-gray-500 mt-1">{job.title} <span className="text-gray-300 mx-1">/</span> {job.company}</p>
+            <div className="flex flex-wrap gap-4 mt-4">
+              <span className="flex items-center gap-1.5 text-xs font-bold text-gray-400 bg-gray-50 px-2.5 py-1 rounded-lg border border-gray-100"><MapPin className="w-3 h-3 text-brand-orange" />{job.location}</span>
+              <span className="flex items-center gap-1.5 text-xs font-bold text-gray-400 bg-gray-50 px-2.5 py-1 rounded-lg border border-gray-100"><Briefcase className="w-3 h-3 text-brand-orange" />{job.job_type}</span>
+              {job.salary && <span className="flex items-center gap-1.5 text-xs font-bold text-gray-400 bg-gray-50 px-2.5 py-1 rounded-lg border border-gray-100"><DollarSign className="w-3 h-3 text-brand-orange" />{job.salary}</span>}
             </div>
           </div>
-          <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-xl transition ml-3 flex-shrink-0">
-            <X className="w-5 h-5 text-gray-500" />
+          <button onClick={onClose} className="p-2.5 hover:bg-gray-100 rounded-2xl transition-all ml-4 flex-shrink-0 group">
+            <X className="w-5 h-5 text-gray-400 group-hover:text-brand-blue" />
           </button>
         </div>
 
